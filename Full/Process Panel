@@ -1,0 +1,171 @@
+conky.config = {
+--====================================
+--   Conky Settings
+--====================================
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+	update_interval = 2,
+	text_buffer_size = 1024,
+
+	draw_shades = true,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+	
+	show_graph_scale = false,
+	show_graph_range = false,
+	
+	background = false,
+	double_buffer = true,
+	no_buffers = true,
+	out_to_console = false,
+	out_to_stderr = false,
+
+--====================================
+--   Window Specifications
+--====================================
+	gap_x = 10,
+	gap_y = 45,
+	alignment = 'bottom_right',
+	
+	minimum_width = 250, minimum_height = 0,
+
+	own_window = true,
+	own_window_type = 'desktop',
+--TO USE TRANSPARENT BACKGROUND SET: own_window_transparent true AND own_window_argb_visual false
+	own_window_transparent = true,
+	own_window_argb_visual = false,
+	own_window_argb_value = 120,
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+--====================================
+--   Text Settings
+--====================================
+	use_xft = true,
+	xftalpha = 0,
+	font = 'sans serif:size=9',
+	override_utf8_locale = true,
+	imlib_cache_size = 0,
+	
+--====================================
+--   VARIABLES
+--====================================
+	color0 = 'white',
+	color1 = '#B100A9',
+	color2 = '#FFA300',
+	color3 = '#FF7E00',
+};
+
+conky.text = [[
+#############################################
+################ SYSTEM #####################
+#############################################
+#inxi --help > SHOW A LOT OF HARDWARE INFORMATION
+${color1}${font FontAwesome:size=11} ${font}${font Ubuntu:style=Bold:size=11}${color1}System${alignr}${font Ubuntu:size=10}${color2}${sysname}
+${font Sans Serif:size=9}${voffset -22}
+${color1}${stippled_hr}
+${color2}Up time ${color0}${alignr}${uptime}${if_existing /sys/class/power_supply/BAT0/present}
+${color2}Battery ${color0}${alignr}${battery_percent BAT0}%${else}${if_existing /sys/class/power_supply/BAT1/present}
+${color2}Battery ${color0}${alignr}${battery_percent BAT1}%${endif}${endif}
+${color2}Processes ${color0}${alignr}${running_processes}/${processes}
+${color2}Hostname ${color0}${alignr}${nodename}
+${color2}Kernel ${color0}${alignr}${kernel}
+${color2}Distro ${alignr}${color0}${execi 86400 cat /etc/issue.net} $machine\
+${font}
+
+##########################################
+################ CPU #####################
+##########################################
+${color1}${font FontAwesome:size=11} ${font}${font Ubuntu:style=Bold:size=11}${color1}CPU${font Ubuntu:size=10}${color2}${alignr}${cpu cpu0}%
+${font Sans Serif:size=9}${voffset -22}
+${color1}${stippled_hr}
+${color0}${cpugraph cpu0 45,250 ffffff ffffff}
+${voffset -67}
+${color3}${font FontAwesome:size=11} ${font}${font Sans Serif:size=9}${if_existing /sys/class/hwmon/hwmon0/temp1_input}${hwmon 0 temp 1}°C${else}${hwmon 1 temp 1}°C${endif}${alignr}${freq}MHz ${font}
+${voffset 5}
+
+#hwmon location: /sys/class/hwmon/
+#${color2}Temperature ${color0}${alignr}${if_existing /sys/class/hwmon/hwmon0/temp1_input}${hwmon 0 temp 1}°C${else}${hwmon 1 temp 1}°C${endif}
+#${color2}Temperature ${color0}${alignr}${hwmon 1 temp 2}°C
+${font Sans Serif:size=9}\
+${color2}Load Average ${color0}${alignr}${loadavg}
+${cpubar cpu0 7,}
+${top name 1} $alignr ${top cpu 1}%
+${top name 2} $alignr ${top cpu 2}%
+${top name 3} $alignr ${top cpu 3}%
+#${top name 4} $alignr ${top cpu 4}%
+#${top name 5} $alignr ${top cpu 5}%
+#${top name 6} $alignr ${top cpu 6}%
+#${top name 7} $alignr ${top cpu 7}%
+${font}\
+
+###############################################
+################ DISK I/O #####################
+###############################################
+${color1}${font FontAwesome:size=11} ${font}${font Ubuntu:style=Bold:size=11}${color1}Disk I/O${alignr}${font Ubuntu:size=10}${color2}${diskio}/s
+${font Sans Serif:size=9}${voffset -22}
+${color1}${stippled_hr}${color0}
+#${diskiograph 45,210 ffffff ffffff}
+${top_io name 1} $alignr ${top_io io_perc 1}%
+${top_io name 2} $alignr ${top_io io_perc 2}%
+${top_io name 3} $alignr ${top_io io_perc 3}%
+#${top_io name 4} $alignr ${top_io io_perc 4}%
+#${top_io name 5} $alignr ${top_io io_perc 5}%
+#${top_io name 6} $alignr ${top_io io_perc 6}%
+#${top_io name 7} $alignr ${top_io io_perc 7}%
+${font}\
+
+################ DISKS I/O TEMPERATURE #####################
+#LISTS ALL HDDS WITH TEMPERATURE: hddtemp /dev/sd?
+${font Sans Serif:size=9}${color2}Disk${alignc}${offset 15}I/O${alignr}Temp.
+#${color0}/dev/sda${alignc}${offset 15}${diskio /dev/sda}/s${alignr}${execi 5 hddtemp /dev/sda | rev | cut -d ' ' -f 1 | rev}${if_existing /dev/sdb}
+#${color0}/dev/sdb${alignc}${offset 15}${diskio /dev/sdb}/s${alignr}${execi 5 hddtemp /dev/sdb | rev | cut -d ' ' -f 1 | rev}${endif}${if_existing /dev/sdc}
+#${color0}/dev/sdc${alignc}${offset 15}${diskio /dev/sdc}/s${alignr}${execi 5 hddtemp /dev/sdc | rev | cut -d ' ' -f 1 | rev}${endif}
+########## DINAMIC CHECK FOR DISKS ############
+${execpi 15 for line in /dev/sd[a-z] ; do
+echo '${color0}'$line'${alignc}${offset 15}${diskio '$line'}/s${alignr}${execi 5 hddtemp '$line' | rev | cut -d '"'"' '"'"' -f 1 | rev}'
+done }
+#ABOVE LIST OTHERS LIKE CD-ROM, MEMORY CARDS, ETC.
+#${execpi 10 lsblk --nodeps --list --output=NAME,SIZE,TYPE,STATE,VENDOR | grep running | awk '{print $1}' | while read line ; do
+#echo '${color0}/dev/'$line'${alignc}${offset 15}${diskio /dev/'$line'}/s${alignr}${execi 5 hddtemp /dev/'$line' | rev | cut -d '"'"' '"'"' -f 1 | rev}'
+#done }
+#
+${font}\
+
+#IF HAS PROBLEM WITH PERMISSION: sudo dpkg-reconfigure hddtemp
+#ANSWER YES IN THE FIRST QUESTION > ALLOW TO BE EXECUTED FOR NORMAL USERS
+#############################################
+################ MEMORY #####################
+#############################################
+${color1}${font FontAwesome:size=11} ${font}${font Ubuntu:style=Bold:size=11}${color1}Memory${alignr}${font Ubuntu:size=10}${color2}${memperc}%
+${font Sans Serif:size=9}${voffset -22}
+${color1}${stippled_hr}
+${color2}Free${alignc}${offset 15}Used${alignr}Total
+${color0}${memeasyfree}${alignc}${offset 15}${mem}${alignr}${memmax}
+#${color2}Total${alignr}${color0}${memmax}
+#${color2}Used${alignr}${color0}${mem}
+#${color2}Free${alignr}${color0}${memfree}
+#${color2}Percent${alignr}${color0}${memperc}%
+${membar 7,}
+${top_mem name 1} $alignr ${top_mem mem_res 1}
+${top_mem name 2} $alignr ${top_mem mem_res 2}
+${top_mem name 3} $alignr ${top_mem mem_res 3}
+#${top_mem name 4} $alignr ${top_mem mem_res 4}
+#${top_mem name 5} $alignr ${top_mem mem_res 5}
+#${top_mem name 6} $alignr ${top_mem mem_res 6}
+#${top_mem name 7} $alignr ${top_mem mem_res 7}
+${font}\
+
+###########################################
+################ SWAP #####################
+###########################################
+${color1}${font FontAwesome:size=11} ${font}${font Ubuntu:style=Bold:size=11}${color1}Swap${alignr}${font Ubuntu:size=10}${color2}${swapperc}%
+${font Sans Serif:size=9}${voffset -22}
+${color1}${stippled_hr}
+${color2}Free${alignc}${offset 15}Used${alignr}Total
+${color0}${swapfree}${alignc}${offset 15}${swap}${alignr}${swapmax}
+#${color2}Total${alignr}${color0}${swapmax}
+#${color2}Used${alignr}${color0}${swap}
+#${color2}Free${alignr}${color0}${swapfree}
+#${color2}Percent${alignr}${color0}${swapperc}%
+${swapbar 7,}]];

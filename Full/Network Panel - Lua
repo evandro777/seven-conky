@@ -1,0 +1,111 @@
+conky.config = {
+--background yes
+	double_buffer = true,
+
+	alignment = 'bottom_right',
+	gap_x = 540,
+	gap_y = 45,
+
+	border_width = 1,
+	cpu_avg_samples = 2,
+	--default_color = 'white',
+	--default_outline_color = 'white',
+	--default_shade_color = 'white',
+	draw_borders = false,
+	draw_graph_borders = false,
+	draw_outline = false,
+	draw_shades = true,
+
+	net_avg_samples = 2,
+	no_buffers = true,
+	out_to_console = false,
+	out_to_stderr = false,
+	extra_newline = false,
+-- FOR RETURNING LONG TEXT ON SCRIPTS, NEED TO INCREASE THIS. Increasing the size of this buffer can drastically reduce Conky's performance, but will allow for more text display per variable
+	text_buffer_size = 1024,
+
+	own_window = true,
+	own_window_type = 'desktop',
+--TO USE TRANSPARENT BACKGROUND SET: own_window_transparent yes AND own_window_argb_visual no
+	own_window_transparent = true,
+	own_window_argb_visual = false,
+	own_window_argb_value = 120,
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+	minimum_width = 210, minimum_height = 0,
+	stippled_borders = 0,
+	update_interval = 10.0,
+	uppercase = false,
+	use_spacer = 'none',
+
+	show_graph_scale = false,
+	show_graph_range = false,
+
+	use_xft = true,
+	xftalpha = 0.1,
+	font = 'Droid Sans:size=9',
+	color0 = 'white',
+	color1 = '#b100a9',
+	color2 = '#FFA300',
+	color3 = '#FF7E00',
+	
+	lua_load = 'network.lua',
+
+};
+
+conky.text = [[
+##############################################
+################ NETWORK #####################
+##############################################
+#Detect interfaces: ls /sys/class/net/ | sed '/lo/d'
+#LIST ESTABLISHED CONNECTIONS
+#${color Tan2}ESTABLISHED Connections${color DarkSlateGray}${hr 2}
+#${offset 10}${color lightgrey}Inbound: ${color white}${tcp_portmon 1 32767 count}    ${color lightgrey}Outbound: ${color white}${tcp_portmon 32768 61000 count}${alignr}${color lightgrey}Total: ${color white}${tcp_portmon 1 65535 count}
+#${color slate grey}Process                 ${color slate grey}Remote IP              ${color slate grey}L-Port ${alignr}${color slate grey}R-Port${color lightgrey}
+#${font Ubuntu Mono:size=8}${texeci 30 netstat -anp | grep 'ESTABLISHED' | sed -r 's|.*192.[0-9.]+:([0-9]*)\s*([0-9.]+):([0-9]+)[^/]+/([a-zA-Z0-9]*)|\4 \2 \1 \3|' | awk '{printf("%-14s %-15s %5s %5s\n",$1,$2,$3,$4)}'}
+#
+#${font Ubuntu:style=Bold:size=11}${color1}Network${alignr}${font Ubuntu:size=10}${color2}
+${color1}${font FontAwesome:size=11} ${font}${font Ubuntu:style=Bold:size=11}Network${alignr}${font Ubuntu:size=10}${color2}
+${font Sans Serif:size=9}${voffset -22}
+${color1}${stippled_hr}
+${color2}Open ports${alignr}${color0}${tcp_portmon 1 65535 count} 
+${color2}Gateway${alignr}${color0}${gw_ip}
+#${color2}Latency Network${color0}${alignr}${texeci 30 ping -c 1 -W 2 $(read _ _ gateway _ < <(ip route list match 0/0); echo "$gateway") | grep time= | sed -e 's/time=/\n/g' | sed -n -e 2p}
+${color2}Latency Network${color0}${alignr}${texeci 5 ping -c 1 -W 2 $(ip route show 0.0.0.0/0 | head -1 | cut -d\  -f3) | grep time= | sed -e 's/time=/\n/g' | sed -n -e 2p}
+${color2}Latency Google${color0}${alignr}${texeci 30 ping -c 1 -W 2 google.com.br | grep time= | sed -e 's/time=/\n/g' | sed -n -e 2p}
+${color2}Latency Google DNS${color0}${alignr}${texeci 30 ping -c 1 -W 2 8.8.8.8 | grep time= | sed -e 's/time=/\n/g' | sed -n -e 2p}
+#OPTIONS TO GET PUBLIC IP:
+#wget -q -O /dev/stdout http://checkip.dyndns.org/ | cut -d : -f 2- | cut -d \< -f -1
+#curl ident.me
+#curl v4.ident.me
+#curl v6.ident.me
+#curl ipecho.net/plain
+#curl icanhazip.com OR wget -qO- icanhazip.com
+#dig +short myip.opendns.com @resolver1.opendns.com
+#dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}'
+${color2}IP Public${color0}${alignr}${texeci 600 curl ipinfo.io/ip}
+###################################################
+################ Device: eth0 #####################
+###################################################
+#${if_up eth0}${color1}eth0
+#${voffset -25}
+#${stippled_hr}
+#${color2}IP${color0}${alignr}${addrs eth0}
+#${color2}Download${alignr}${color0}${totaldown eth0}
+#${color0}${alignr}${downspeedgraph eth0 45,210}
+#${voffset -67}
+#${color3}${alignr}${downspeedf eth0} KiB/s 
+#
+#
+#${color2}Upload${alignr}${color0}${totalup eth0}
+#${color0}${alignr}${upspeedgraph eth0 45,210}
+#${voffset -67}
+#${color3}${alignr}${upspeedf eth0} KiB/s 
+#
+#${endif}${if_up eth1}
+#
+####################################################
+################ Print Devices #####################
+####################################################
+${voffset -15}${lua_parse conky_mynetwork}${voffset -7}
+]];

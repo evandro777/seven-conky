@@ -1,0 +1,57 @@
+#conky.config {
+background false
+#font 'GE Inspira:size=8',
+uppercase false
+override_utf8_locale true
+default_color white
+
+alignment top_right
+gap_x 230
+gap_y 180
+#minimum_width 450
+#maximum_width 450
+minimum_size 450 110
+
+own_window yes
+own_window_type desktop
+#TO USE TRANSPARENT BACKGROUND SET: own_window_transparent yes AND own_window_argb_visual no
+own_window_transparent yes
+own_window_argb_visual no
+own_window_argb_value 95
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+double_buffer true
+draw_shades false
+draw_outline false
+draw_borders false
+draw_graph_borders false
+
+no_buffers true
+use_xft true
+xftalpha 0.1
+cpu_avg_samples 2
+update_interval 1
+total_run_times 0
+imlib_cache_size 0
+#};
+
+#conky.text [[
+TEXT
+# --- Get Spotify Cover ---
+${if_running spotify}
+${exec ~/.conky/conky-spotify/scripts/cover.sh}
+# --- Show wallpaper and cover ---
+
+${image current/current.jpg -p 2,0 -s 112x112}
+${image background.png -p 0,0 -s 482x170}
+# --- Show now playing information ---
+${voffset -114}
+${goto 124}${font Noto Sans:size=7}Title:
+${goto 132}${font GE Inspira:size=14}${exec scripts/title.sh}
+${voffset -32}
+${goto 124}${font Noto Sans:size=7}Artist:
+${goto 132}${font GE Inspira:size=14}${exec scripts/artist.sh}
+${voffset -32}
+${goto 124}${font Noto Sans:size=7}Album:
+${goto 132}${font GE Inspira:size=14}${exec scripts/album.sh}${endif}
+#]];

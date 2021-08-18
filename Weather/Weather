@@ -1,0 +1,205 @@
+require 'io'
+
+function pre_exec(cmd)
+	local handle = io.popen(cmd)
+	local output = handle:read("*a")
+	handle:close()
+	return output
+end
+
+--local template5 = '\n'
+
+--====================================
+--   Icon Sources
+--====================================
+--local template0 = 'conky-weather/icons'
+
+
+--====================================
+--   API Key
+--====================================
+--local template6 = 'xxx'
+
+
+--====================================
+--   City ID
+--====================================
+--local template7 = '3448639' -- São José do Rio Preto - SP
+--local template7 = '3457095' -- Mirassol - SP
+
+--====================================
+--   Temp Unit (default, metric, imperial)
+--====================================
+--local template8 = 'metric'
+
+
+--====================================
+--   Locale (e.g. "es_ES.UTF-8")
+--   Leave empty for default
+--====================================
+--local template9 = 'pt_BR.UTF-8'
+
+-- PRE EXECUTE > FIX PROBLEM WITH CONKY SHOWING RESULTS BEFORE FINISH THE SHELL SCRIPT
+--pre_exec('mkdir -p /tmp/conky-weather/cache/')
+--pre_exec('l='..template9..'; l=${l%%_*}; curl -s "api.openweathermap.org/data/2.5/forecast/daily?APPID='..template6..'&id='..template7..'&units='..template8..'&lang=$l" -o /tmp/conky-weather/cache/forecast.json')
+--pre_exec('. ./WeatherConfig.sh; curl -s "api.openweathermap.org/data/2.5/weather?APPID=$weatherKey&id=$weatherCityId&units=$weatherUnit&lang=$weatherLanguage" -o /tmp/conky-weather/cache/weather.json')
+--pre_exec('. ./WeatherConfig.sh; curl -s "api.openweathermap.org/data/2.5/onecall?exclude=minutely,hourly&APPID=$weatherKey&lat="$(jq -r ".coord.lat" /tmp/conky-weather/cache/weather.json)"&lon="$(jq -r ".coord.lon" /tmp/conky-weather/cache/weather.json)"&units=$weatherUnit&lang=$weatherLanguage" -o /tmp/conky-weather/cache/onecall.json')
+pre_exec('./conky-weather/WeatherFetch.sh')
+
+conky.config = {
+--====================================
+--   Conky Settings
+--====================================
+	background = false,
+	update_interval = 300,
+	double_buffer = true,
+	no_buffers = true,
+
+	draw_shades = true,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+	text_buffer_size = 1024,
+
+--====================================
+--   Window Specifications
+--====================================
+	--gap_x = 820, gap_y = 180,
+	gap_x = 10, gap_y = 10,
+	alignment = 'top_right',
+
+	minimum_width = 280, minimum_height = 150,
+	maximum_width = 400,
+
+	own_window = true,
+	own_window_type = 'desktop',
+--TO USE TRANSPARENT BACKGROUND SET: own_window_transparent yes AND own_window_argb_visual no
+	own_window_transparent = true,
+	own_window_argb_visual = false,
+	own_window_argb_value = 120,
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+--====================================
+--   Text Settings
+--====================================
+	use_xft = true,
+	xftalpha = 0,
+	font = 'sans serif:size=10',
+	override_utf8_locale = true,
+	imlib_cache_size = 0,
+
+
+--====================================
+--   Color Scheme
+--====================================
+	default_color = '#FFFFFF',
+
+	color0 = 'white',
+	color1 = '#B100A9',
+	color2 = '#FFA300',
+	color3 = '#FF7E00',
+	
+	color4 = '#FFFFFF',-- month day
+	color5 = '#FFFFFF',-- month
+	color6 = '#FFFFFF',-- current temp
+	color7 = '#00ABFF',-- min temp
+	color8 = '#FFA300',-- max temp
+	color9 = '#FFFFFF',-- current conditions
+
+
+--====================================
+--   Icon Sources
+--====================================
+	template0 = template0,
+	template5 = template5,
+
+
+--====================================
+--   API Key
+--====================================
+--	template6 = template6,
+
+
+--====================================
+--   City ID
+--====================================
+--	template7 = template7,
+
+
+--====================================
+--   Temp Unit (default, metric, imperial)
+--====================================
+--	template8 = template8,
+
+
+--====================================
+--   Locale (e.g. "es_ES.UTF-8")
+--   Leave empty for default
+--====================================
+--	template9 = template9,
+
+--##################################################
+--##################################################
+
+
+};
+
+conky.text = [[
+${execi 600 conky-weather/WeatherFetch.sh}
+#
+#----------------------------------------
+#   Current weather
+#----------------------------------------
+#${font Roboto Light:style=Bold:size=14}${alignc}${color6}${exec jq -r ".name" /tmp/conky-weather/cache/weather.json}${font}${color}
+#${voffset -8}${stippled_hr}
+${font FontAwesome:size=11} ${font Ubuntu:style=Bold:size=11}${exec jq -r ".name" /tmp/conky-weather/cache/weather.json}
+${voffset -22}
+${stippled_hr}
+#Humidity
+#${image conky-weather/humidity.png -p 0,30 -s 16x16}${goto 22}
+${font FontAwesome:size=11} ${font}${font Roboto Light:size=11}${exec jq -r ".main.humidity" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num} %${font}${color}\
+#Wind
+${image conky-weather/wind.png -p 80,50 -s 16x16}\
+${goto 105}${font Roboto Light:size=11}${color}${exec jq -r ".wind.speed" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num}${if_match "$template8" == "metric"} m/s${else}${if_match "$template8" == "default"} m/s${else}${if_match "$template8" == "imperial"} mi/h${endif}${endif}${endif}${font}${color}\
+#Description
+${font Roboto Light:size=11}${alignr}${exec jq -r ".weather[0].description" /tmp/conky-weather/cache/weather.json}${font}
+#Pressure
+#${image conky-weather/pressure.png -p 0,73 -s 16x16}\
+#${voffset 7}\
+#${goto 22}${exec jq -r ".main.pressure" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num} hPa${font}${color}
+#Temperature
+${font Roboto Light :size=24}${color6}\
+${exec jq ".main.temp" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num}°${font}${color}\
+${font Roboto Light :size=11}${color6}\
+${goto 65}${voffset -2}(${exec jq ".main.feels_like" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num}°)${font}${color}\
+${font Roboto Light:size=11}${voffset 2}
+${color7}⬇️${exec jq -r ".daily[0].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
+${color8}⬆️${exec jq -r ".daily[0].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color}\
+${font}
+# Current weather
+${image /tmp/conky-weather/cache/current.png -p 210,55 -s 64x64}\
+${voffset 2}${font Roboto Light:size=10}\
+${if_match "${exec jq -r ".alerts[0].event" /tmp/conky-weather/cache/onecall.json}" != "null"}* ${exec jq -r ".alerts[0].event" /tmp/conky-weather/cache/onecall.json}${template5}${endif}\
+${if_match "${exec jq -r ".alerts[1].event" /tmp/conky-weather/cache/onecall.json}" != "null"}* ${exec jq -r ".alerts[1].event" /tmp/conky-weather/cache/onecall.json}${template5}${endif}\
+${if_match "${exec jq -r ".alerts[2].event" /tmp/conky-weather/cache/onecall.json}" != "null"}* ${exec jq -r ".alerts[1].event" /tmp/conky-weather/cache/onecall.json}${template5}${endif}\
+${font}
+#
+#----------------------------------------
+#   Forecast weather
+#----------------------------------------
+${voffset 1}${stippled_hr}
+#Tomorrow Temperature
+${font Roboto Light:size=11}${color0}Amanhã${font}${color} \
+${goto 80}${font sans serif:size=10}${color7}⬇️${exec jq -r ".daily[1].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
+${color8}⬆️${exec jq -r ".daily[1].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color} \
+#Tomorrow Description
+${font Roboto Light:size=11}${alignr}${exec jq -r ".daily[1].weather[0].description" /tmp/conky-weather/cache/onecall.json}${font}${color}
+#Tomorrow Icon
+#${image /tmp/conky-weather/cache/forecast-tomorrow.png -p 155,125 -s 64x64}
+#After Tomorrow Temperature
+${font Roboto Light:size=11}${color0}Depois${font}${color} \
+${goto 80}${font sans serif:size=10}${color7}⬇️${exec jq -r ".daily[2].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
+${color8}⬆️${exec jq -r ".daily[2].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color} \
+#After Tomorrow Description
+${font Roboto Light:size=11}${alignr}${exec jq -r ".daily[2].weather[0].description" /tmp/conky-weather/cache/onecall.json}${font}${color}
+]];

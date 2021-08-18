@@ -1,0 +1,85 @@
+conky.config = {
+--====================================
+--   Conky Settings
+--====================================
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+	update_interval = 2,
+	text_buffer_size = 11024,
+
+	draw_shades = true,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+	
+	show_graph_scale = false,
+	show_graph_range = false,
+	
+	background = false,
+	double_buffer = true,
+	no_buffers = true,
+	out_to_console = false,
+	out_to_stderr = false,
+
+--====================================
+--   Window Specifications
+--====================================
+	gap_x = 10,
+	gap_y = 45,
+	alignment = 'bottom_right',
+	
+	minimum_width = 250, minimum_height = 0,
+
+	own_window = true,
+	own_window_type = 'desktop',
+--TO USE TRANSPARENT BACKGROUND SET: own_window_transparent true AND own_window_argb_visual false
+	own_window_transparent = true,
+	own_window_argb_visual = false,
+	own_window_argb_value = 120,
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+--====================================
+--   Text Settings
+--====================================
+	use_xft = true,
+	xftalpha = 0,
+	font = 'sans serif:size=9',
+	override_utf8_locale = true,
+	imlib_cache_size = 0,
+	
+--====================================
+--   VARIABLES
+--====================================
+	color0 = 'white',
+	color1 = '#B100A9',
+	color2 = '#FFA300',
+	color3 = '#FF7E00',
+	
+	template0 = 'https://news.google.com/rss/topics/CAAqLAgKIiZDQkFTRmdvSkwyMHZNR1ptZHpWbUVnVndkQzFDVWhvQ1FsSW9BQVAB?hl=pt-BR&gl=BR&ceid=BR%3Apt-419&oc=11',
+};
+
+conky.text = [[
+${font size=12}${color red}Google News - Principais notícias${color}${font Rounded Elegance:size=9}
+${rss https://news.google.com/rss?hl=pt-BR&gl=BR&ceid=BR%3Apt-419&oc=11 900 item_titles 10 }
+
+${font size=12}${color red}Google News - São José do Rio Preto${color}${font Rounded Elegance:size=9}
+${rss https://news.google.com/rss/search?q=S%C3%A3o+Jos%C3%A9+do+Rio+Preto&hl=pt-BR&gl=BR&ceid=BR:pt-419 900 item_titles 10 }
+#${font size=12}${color red}Google News - Ciência e tecnologia${color}${font Rounded Elegance:size=9}
+#${rss "$template0" 900 item_titles 10 }
+#${font size=12}${color red}Google News - Negócios${color}${font Rounded Elegance:size=9}
+#${rss https://news.google.com/rss/topics/CAAqKggKIiRDQkFTRlFvSUwyMHZNRGx6TVdZU0JYQjBMVUpTR2dKQ1VpZ0FQAQ?hl=pt-BR&gl=BR&ceid=BR%3Apt-419&oc=11 900 item_titles 10 }
+#${font size=12}${color red}Google News - Entretenimento > Filmes${color}${font Rounded Elegance:size=9}
+#${rss https://news.google.com/rss/topics/CAAqKggKIiRDQkFTRlFvSUwyMHZNREpxYW5RU0JYQjBMVUpTR2dKQ1VpZ0FQAQ/sections/CAQiXkNCQVNRQW9JTDIwdk1ESnFhblFTQlhCMExVSlNHZ0pDVWlJT0NBUWFDZ29JTDIwdk1ESjJlRzRxR1FvWENoTk5UMVpKUlZOZlUwVkRWRWxQVGw5T1FVMUZJQUVvQUEqLggAKioICiIkQ0JBU0ZRb0lMMjB2TURKcWFuUVNCWEIwTFVKU0dnSkNVaWdBUAFQAQ?hl=pt-BR&gl=BR&ceid=BR%3Apt-419&oc=11 900 item_titles 10 }
+#${font size=12}${color red}Google News - Top Stories${color}${font Rounded Elegance:size=9}
+#${rss https://news.google.com/rss?hl=en-US&gl=US&ceid=US%3Aen&oc=11 15 item_titles 10 }
+#${font size=12}${color red}Google News - Entertainment > Movies${color}${font Rounded Elegance:size=9}
+#${rss https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNREpxYW5RU0FtVnVHZ0pWVXlnQVAB/sections/CAQiWkNCQVNQUW9JTDIwdk1ESnFhblFTQW1WdUdnSlZVeUlPQ0FRYUNnb0lMMjB2TURKMmVHNHFHUW9YQ2hOTlQxWkpSVk5mVTBWRFZFbFBUbDlPUVUxRklBRW9BQSoqCAAqJggKIiBDQkFTRWdvSUwyMHZNREpxYW5RU0FtVnVHZ0pWVXlnQVABUAE?hl=en-US&gl=US&ceid=US%3Aen&oc=11 15 item_titles 10 }
+#${font size=12}${color red}Google News - Business${color}${font Rounded Elegance:size=9}
+#${rss https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen 15 item_titles 10 }
+#${font size=12}${color red}Google News - Technology${color}${font Rounded Elegance:size=9}
+#${rss https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGRqTVhZU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen 15 item_titles 10 }
+#${font size=12}${color red}Google News - Science${color}${font Rounded Elegance:size=9}
+#${rss https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFp0Y1RjU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen&oc=11 15 item_titles 10 }
+#${font size=12}${color red}CNN${color}${font Rounded Elegance:size=9}
+#${rss http://rss.cnn.com/rss/cnn_topstories.xml 15 item_titles 6 } 
+]];

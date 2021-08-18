@@ -1,0 +1,66 @@
+conky.config = {
+--====================================
+--   Conky Settings
+--====================================
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+	update_interval = 1,
+	text_buffer_size = 1024,
+
+	draw_shades = true,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = true,
+	
+	show_graph_scale = false,
+	show_graph_range = false,
+	
+	background = false,
+	double_buffer = true,
+	no_buffers = true,
+	out_to_console = false,
+	out_to_stderr = false,
+
+--====================================
+--   Window Specifications
+--====================================
+	gap_x = 320,
+	gap_y = 10,
+	alignment = 'top_right',
+	
+	minimum_width = 210, minimum_height = 0,
+
+	own_window = true,
+	own_window_type = 'desktop',
+--TO USE TRANSPARENT BACKGROUND SET: own_window_transparent yes AND own_window_argb_visual no
+	own_window_transparent = false,
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+--====================================
+--   Text Settings
+--====================================
+	use_xft = true,
+	xftalpha = 0,
+	font = 'sans serif:size=9',
+	override_utf8_locale = true,
+	imlib_cache_size = 0,
+	
+--====================================
+--   VARIABLES
+--====================================
+
+};
+
+conky.text = [[
+#####################################################
+################ GOTHAM > CLOCK #####################
+#####################################################
+#${voffset -40}${color EAEAEA}${font Purisa:pixelsize=120}${time %H:%M}${font}\
+#${voffset -84}${offset 10}${color FFA300}${font Purisa:pixelsize=42}${time %d} \
+#${voffset -15}${color EAEAEA}${font Purisa:pixelsize=22}${time  %B} ${time %Y}${font}\
+#${voffset 24}${font Purisa:pixelsize=58}${offset -148}${time %A}${font}
+${voffset 10}${color EAEAEA}${font GE Inspira:pixelsize=120}${time %H:%M}${font}${voffset -84}${offset 10}${color FFA300}${font GE Inspira:pixelsize=42}${time %d} ${voffset -15}${color EAEAEA}${font GE Inspira:pixelsize=22}${time  %B} ${time %Y}${font}${voffset 24}${font GE Inspira:pixelsize=58}${offset -148}${time %A}${font}
+${voffset 60}
+]];
