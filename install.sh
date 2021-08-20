@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+{ # this ensures the entire script is downloaded #
+
 cd "$(dirname "$(realpath "$0")")"
 
 #COLORS
@@ -75,3 +77,5 @@ else
 	echo -e "${ORANGE}Removing startup conky${NC}"
 	rm "${sevenConkyAutostartFile}"
 fi
+
+} # this ensures the entire script is downloaded #
