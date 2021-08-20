@@ -36,11 +36,11 @@ Set these configurations in the file Weather/conky-weather/WeatherConfig.sh
 	sudo apt install conky conky-all
 
 ## Install dependencys on Ubuntu/Mint
-FontAwesome:
+### FontAwesome:
 	sudo apt install fonts-font-awesome
 
-[osquery](https://github.com/osquery/osquery) used for listing network interfaces
-Installing on Ubuntu/Mint:
+### [osquery](https://github.com/osquery/osquery) used for listing network interfaces
+### Installing on Ubuntu/Mint:
 	export OSQUERY_KEY=1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B
 	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys $OSQUERY_KEY
 	sudo add-apt-repository 'deb [arch=amd64] https://pkg.osquery.io/deb deb main'
