@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 { # this ensures the entire script is downloaded #
 
-cd "$(dirname "$(realpath "$0")")"
+#Example of usage this script:
+#Install with prompting: ./install.sh
+#Install custom options: ./install.sh -l "${HOME}/.conky/seven-conky/" -a "minimalist"
+#Download and install: bash <(curl -s https://raw.githubusercontent.com/evandro777/seven-conky/main/install.sh)
+#Download and install with custom options: installLocation="${HOME}/.conky/seven-conky/" autoStart="minimalist" bash <(curl -s https://raw.githubusercontent.com/evandro777/seven-conky/main/install.sh)
 
 #COLORS
 RED='\033[0;31m'
@@ -39,8 +43,8 @@ if [ -z "$autoStart" ]; then
 fi
 
 case $autoStart in
-	[Ff]* ) autoStart="start-full.sh";;
-	[Mm]* ) autoStart="start-minimalist.sh";;
+	[Ff]* ) autoStart="full";;
+	[Mm]* ) autoStart="minimalist";;
 esac
 
 echo "Downloading the most recent conky"
@@ -60,7 +64,7 @@ sevenConkyAutostartFile="${HOME}/.config/autostart/seven-conky.desktop"
 
 sevenConkyAutostartContent='[Desktop Entry]
 Type=Application
-Exec="'${installLocation}${autoStart}'"
+Exec="'${installLocation}start-${autoStart}.sh'"
 X-GNOME-Autostart-enabled=true
 NoDisplay=false
 Hidden=false

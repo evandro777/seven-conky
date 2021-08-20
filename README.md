@@ -38,6 +38,9 @@ sudo apt install conky conky-all
 ## To get temperature, need to allow regular user to execute hddtemp
 `sudo chmod +s /usr/sbin/hddtemp`
 
+## Easy install
+`bash <(curl -s https://raw.githubusercontent.com/evandro777/seven-conky/main/install.sh)`
+
 ## Some code and layouts which are inspired
 [Gothan Conky](https://www.gnome-look.org/p/1084945)
 
