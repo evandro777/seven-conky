@@ -35,7 +35,7 @@ Set these configurations in the file Weather/conky-weather/WeatherConfig.sh
 ## Installing conky on Ubuntu/Mint
 `sudo apt install conky conky-all`
 
-## Install font dependency
+## Install font dependency on Ubuntu/Mint
 `sudo apt install fonts-font-awesome`
 
 ## To get temperature, need to allow regular user to execute hddtemp
