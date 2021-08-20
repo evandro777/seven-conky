@@ -33,12 +33,15 @@ To get the city id to get the weather, search your city id at: [Open Weather Map
 Set these configurations in the file Weather/conky-weather/WeatherConfig.sh
 
 ## Installing conky on Ubuntu/Mint
-sudo apt install conky conky-all
+`sudo apt install conky conky-all`
+
+## Install font dependency
+`sudo apt install fonts-font-awesome`
 
 ## To get temperature, need to allow regular user to execute hddtemp
 `sudo chmod +s /usr/sbin/hddtemp`
 
-## Easy install
+## Easy install this script
 `bash <(curl -s https://raw.githubusercontent.com/evandro777/seven-conky/main/install.sh)`
 
 ## Some code and layouts which are inspired
