@@ -43,7 +43,7 @@ if [ -z "$autoStart" ]; then
 fi
 
 echo "Downloading the most recent conky"
-wget --directory-prefix="${installLocation}" https://codeload.github.com/evandro777/seven-conky/zip/refs/heads/main
+wget --directory-prefix="${installLocation}" https://github.com/evandro777/seven-conky/archive/refs/heads/main.zip
 
 echo "Installing conky in: $installLocation"
 unzip -q -o "${installLocation}/main.zip" -d "${installLocation}"
