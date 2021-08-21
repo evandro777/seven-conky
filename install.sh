@@ -26,7 +26,7 @@ if [ -z "$installLocation" ]; then
 	read -p "" installLocation
 fi
 if [ -z "$installLocation" ]; then
-	installLocation="${HOME}/.conky/seven-conky/"
+	installLocation="${HOME}/.conky/seven-conky"
 fi
 
 if [ -z "$autoStart" ]; then
@@ -42,23 +42,18 @@ if [ -z "$autoStart" ]; then
 	done
 fi
 
-case $autoStart in
-	[Ff]* ) autoStart="full";;
-	[Mm]* ) autoStart="minimalist";;
-esac
-
 echo "Downloading the most recent conky"
-wget --directory-prefix="${installLocation}" https://github.com/evandro777/seven-conky/archive/refs/heads/main.zip
+wget --directory-prefix="${installLocation}" https://codeload.github.com/evandro777/seven-conky/zip/refs/heads/main
 
 echo "Installing conky in: $installLocation"
-unzip -q -o "${installLocation}main.zip" -d "${installLocation}"
+unzip -q -o "${installLocation}/main.zip" -d "${installLocation}"
 
 #mv doesn't overwrite subfolders
-#mv -f "${installLocation}seven-conky-main/"* --target-directory="${installLocation}"
-cp -rlf "${installLocation}seven-conky-main/"* "${installLocation}"
-rm -r "${installLocation}seven-conky-main/"
+#mv -f "${installLocation}/seven-conky-main/"* --target-directory="${installLocation}"
+cp -rlf "${installLocation}/seven-conky-main/"* "${installLocation}"
+rm -r "${installLocation}/seven-conky-main/"
 
-rm "${installLocation}main.zip"
+rm "${installLocation}/main.zip"
 
 # WEATHER CONFIG
 weatherConfigLocation="${installLocation}/Weather/conky-weather/WeatherConfig.sh"
@@ -89,27 +84,6 @@ if [ -z "$weatherLanguage" ]; then
 	sed -i 's/weatherLanguage=.*$/weatherLanguage="'$weatherLanguage'"/g' "${weatherConfigLocation}"
 fi
 
-
-sevenConkyAutostartFile="${HOME}/.config/autostart/seven-conky.desktop"
-
-sevenConkyAutostartContent='[Desktop Entry]
-Type=Application
-Exec="'${installLocation}start-${autoStart}.sh'"
-X-GNOME-Autostart-enabled=true
-NoDisplay=false
-Hidden=false
-Name[en_US]=seven-conky
-Comment[en_US]=Start seven-conky
-X-GNOME-Autostart-Delay=5
-X-GNOME-Autostart-enabled=true'
-
-if [ -n "$autoStart" ]; then
-	echo -e "${ORANGE}Creating startup conky${NC}"
-	#CREATE FILE WITH USER PERMISSION. USING ECHO OR PRINTF DIRECTLY WILL CREATE WITH ROOT PERMISSION
-	printf "${sevenConkyAutostartContent}" | tee "${sevenConkyAutostartFile}" > /dev/null
-else
-	echo -e "${ORANGE}Removing startup conky${NC}"
-	rm "${sevenConkyAutostartFile}"
-fi
+. "${installLocation}/autostart.sh" "$autoStart"
 
 } # this ensures the entire script is downloaded #
