@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #Example of usage this script:
 #Install with prompting: ./install.sh
-#Install custom options: ./install.sh -l "${HOME}/.conky/seven-conky/" -a "minimalist"
+#Install custom options: ./install.sh -l "${HOME}/.conky/seven-conky/" -a "m"
 
 #COLORS
 RED='\033[0;31m'
@@ -17,7 +17,6 @@ if [ -z "$autoStart" ]; then
 		echo -e "${ORANGE}Enable autostart? [F]ull | [M]inimalist (leave empty to disable): ${NC}"
 		read -p "" prompt
 		case $prompt in
-			[Ff]* ) autoStart="f"; break;;
 			[Mm]* ) autoStart="m"; break;;
 			"" ) autoStart=""; break;;
 			* ) echo "Answer F, M or leave empty";;
@@ -26,7 +25,6 @@ if [ -z "$autoStart" ]; then
 fi
 
 case $autoStart in
-	[Ff]* ) autoStart="full";;
 	[Mm]* ) autoStart="minimalist";;
 esac
 

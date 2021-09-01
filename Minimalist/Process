@@ -2,10 +2,10 @@ conky.config = {
 --====================================
 --   Conky Settings
 --====================================
-	--lua_load = 'music.lua',
+	--lua_load = 'process.lua',
 	cpu_avg_samples = 2,
 	net_avg_samples = 2,
-	update_interval = 5,
+	update_interval = 3,
 	--text_buffer_size = 1024,
 
 	draw_shades = true,
@@ -25,18 +25,18 @@ conky.config = {
 --====================================
 --   Window Specifications
 --====================================
-	gap_x = 10,
-	gap_y = 45,
-	alignment = 'bottom_right',
+	gap_x = 1100,
+	gap_y = 130,
+	alignment = 'top_right',
 	
-	minimum_width = 350, minimum_height = 110,
-
+	minimum_width = 210, minimum_height = 60,
+	
 	own_window = true,
 	own_window_type = 'desktop',
 	--TO USE TRANSPARENT BACKGROUND SET: own_window_transparent true AND own_window_argb_visual false
-	own_window_transparent = true,
-	own_window_argb_visual = false,
-	own_window_argb_value = 120,
+	own_window_transparent = false,
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 
 --====================================
@@ -44,10 +44,10 @@ conky.config = {
 --====================================
 	use_xft = true,
 	xftalpha = 0,
-	font = 'sans serif:size=10', --Becarefull, it impacts on shades
+	font = 'sans serif:size=9',
 	override_utf8_locale = true,
 	imlib_cache_size = 0,
-
+	
 --====================================
 --   VARIABLES
 --====================================
@@ -61,5 +61,16 @@ conky.config = {
 };
 
 conky.text = [[
-${if_match "${exec conky-music/isActive.sh}" != ""}${execp conky-music/conky.sh}${endif}
+${color1}${font FontAwesome:size=11} ${font}${font sans serif:size=9}RAM ${offset 9}${color}$mem / $memmax${offset 30}${font}
+${membar 4,175}
+${font Sans Serif:size=9}\
+${top_mem name 1}${goto 135}${top_mem mem_res 1}
+${top_mem name 2}${goto 135}${top_mem mem_res 2}
+${top_mem name 3}${goto 135}${top_mem mem_res 3}
+${voffset 5}${color1}${font FontAwesome:size=11} ${font}${font sans serif:size=9}CPU ${offset 9}${color}${cpu cpu0}% ${goto 137}${color1}${font}${font FontAwesome:size=11} ${font}${font sans serif:size=9}${color}${if_existing /sys/class/hwmon/hwmon0/temp1_input}${hwmon 0 temp 1}°C${else}${hwmon 1 temp 1}°C${endif}${font}
+${font Sans Serif:size=9}\
+${cpubar cpu0 4,175}
+${top name 1}${goto 135}${top cpu 1}%
+${top name 2}${goto 135}${top cpu 2}%
+${top name 3}${goto 135}${top cpu 3}%
 ]];

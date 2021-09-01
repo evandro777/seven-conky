@@ -3,19 +3,15 @@
 
 * Conky Disks: show all disks dinamically, even mounted flash drives
 
-* Conky Network: get all network interfaces dinamically (in full option), and gets the main one on Minimalist
+* Conky Network: get network interface dinamically (try to guess to main one)
 
 * Conky Music: integrates with Spotify and Clementine
 
 * Conky Weather: uses OpenWeatherMap
 
-#### Option 1: With minimalist interface
+#### Screenshot
 	./start-minimalist.sh
-![Minimalist image](Minimalist.png)
-
-#### Option 2: With a full, more detailed interface
-	./start-full.sh
-![Full image](Full.png)
+![Screenshot](Minimalist.png)
 
 ## Weather conky
 Weather conky, must be configured manually to set an api token and city id.
@@ -39,18 +35,17 @@ Set these configurations in the file Weather/conky-weather/WeatherConfig.sh
 #### FontAwesome:
 	sudo apt install fonts-font-awesome
 
-#### [osquery](https://github.com/osquery/osquery) used for listing network interfaces:
-	export OSQUERY_KEY=1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B
-	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys $OSQUERY_KEY
-	sudo add-apt-repository 'deb [arch=amd64] https://pkg.osquery.io/deb deb main'
-	apt update
-	sudo apt install -y osquery
-
 ## To get temperature, need to allow regular user to execute hddtemp
 	sudo chmod +s /usr/sbin/hddtemp
 
 ## Easy install this script
 	bash <(curl -s https://raw.githubusercontent.com/evandro777/seven-conky/main/install.sh)
+
+## Problems known
+Listing network interfaces is using ifconfig -s (similar to netstat -i, which is deprecated), and there's a bug which cuts long interface's name.
+Then some intefaces may not show.
+
+[Discussion](https://bugzilla.redhat.com/show_bug.cgi?id=1557470)
 
 ## Some code and layouts which are inspired
 [Gothan Conky](https://www.gnome-look.org/p/1084945)

@@ -2,10 +2,11 @@ conky.config = {
 --====================================
 --   Conky Settings
 --====================================
+	lua_load = 'network.lua',
 	cpu_avg_samples = 2,
 	net_avg_samples = 2,
-	update_interval = 1,
-	text_buffer_size = 1024,
+	update_interval = 5,
+	--text_buffer_size = 1024,
 
 	draw_shades = true,
 	draw_outline = false,
@@ -24,15 +25,15 @@ conky.config = {
 --====================================
 --   Window Specifications
 --====================================
-	gap_x = 320,
-	gap_y = 10,
+	gap_x = 890,
+	gap_y = 130,
 	alignment = 'top_right',
 	
-	minimum_width = 210, minimum_height = 0,
-
+	minimum_width = 210, minimum_height = 60,
+	
 	own_window = true,
 	own_window_type = 'desktop',
---TO USE TRANSPARENT BACKGROUND SET: own_window_transparent yes AND own_window_argb_visual no
+	--TO USE TRANSPARENT BACKGROUND SET: own_window_transparent true AND own_window_argb_visual false
 	own_window_transparent = false,
 	own_window_argb_visual = true,
 	own_window_argb_value = 0,
@@ -51,16 +52,14 @@ conky.config = {
 --   VARIABLES
 --====================================
 
+--   Color Scheme
+--====================================
+	default_color = '#FFFFFF',
+	color0 = '#EAEAEA',
+	color1 = '#FFA300',
+	color2 = '#00ABFF',
 };
 
 conky.text = [[
-#####################################################
-################ GOTHAM > CLOCK #####################
-#####################################################
-#${voffset -40}${color EAEAEA}${font Purisa:pixelsize=120}${time %H:%M}${font}\
-#${voffset -84}${offset 10}${color FFA300}${font Purisa:pixelsize=42}${time %d} \
-#${voffset -15}${color EAEAEA}${font Purisa:pixelsize=22}${time  %B} ${time %Y}${font}\
-#${voffset 24}${font Purisa:pixelsize=58}${offset -148}${time %A}${font}
-${voffset 10}${color EAEAEA}${font GE Inspira:pixelsize=120}${time %H:%M}${font}${voffset -84}${offset 10}${color FFA300}${font GE Inspira:pixelsize=42}${time %d} ${voffset -15}${color EAEAEA}${font GE Inspira:pixelsize=22}${time  %B} ${time %Y}${font}${voffset 24}${font GE Inspira:pixelsize=58}${offset -148}${time %A}${font}
-${voffset 60}
+${lua_parse conky_mynetwork}
 ]];

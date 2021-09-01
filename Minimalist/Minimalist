@@ -2,10 +2,11 @@ conky.config = {
 --====================================
 --   Conky Settings
 --====================================
+	--lua_load = 'minimalist.lua',
 	cpu_avg_samples = 2,
 	net_avg_samples = 2,
 	update_interval = 1,
-	text_buffer_size = 1024,
+	--text_buffer_size = 1024,
 
 	draw_shades = true,
 	draw_outline = false,
@@ -28,14 +29,14 @@ conky.config = {
 	gap_y = 10,
 	alignment = 'top_right',
 	
-	minimum_width = 210, minimum_height = 0,
+	minimum_width = 1000, minimum_height = 0,
 
 	own_window = true,
 	own_window_type = 'desktop',
---TO USE TRANSPARENT BACKGROUND SET: own_window_transparent true AND own_window_argb_visual false
-	own_window_transparent = true,
-	own_window_argb_visual = false,
-	own_window_argb_value = 120,
+	--TO USE TRANSPARENT BACKGROUND SET: own_window_transparent true AND own_window_argb_visual false
+	own_window_transparent = false,
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 
 --====================================
@@ -47,26 +48,22 @@ conky.config = {
 	override_utf8_locale = true,
 	imlib_cache_size = 0,
 	
-	lua_load = 'network.lua',
-	
 --====================================
 --   VARIABLES
 --====================================
 
+--   Color Scheme
+--====================================
+	default_color = '#FFFFFF',
+	color0 = '#EAEAEA',
+	color1 = '#FFA300',
+	color2 = '#00ABFF',
 };
 
 conky.text = [[
-${color EAEAEA}${font GE Inspira:pixelsize=120}${time %H:%M}${font}\
-${voffset -84}${offset 10}${color FFA300}${font GE Inspira:pixelsize=42}${time %d} \
-${voffset -15}${color EAEAEA}${font GE Inspira:pixelsize=22}${time %B} ${time %Y}${font}\
+${color0}${font GE Inspira:pixelsize=120}${time %H:%M}${font}\
+${voffset -84}${offset 10}${color1}${font GE Inspira:pixelsize=42}${time %d} \
+${voffset -15}${color0}${font GE Inspira:pixelsize=22}${time %B} ${time %Y}${font}\
 ${voffset 24}${font GE Inspira:pixelsize=58}${offset -148}${time %A}${font}
-${voffset 10}${offset 180}${color FFA300}${font FontAwesome:size=11} ${font}${font sans serif:size=9}RAM ${offset 9}${color}$mem / $memmax${offset 30}${font}
-${voffset 4}${offset 180}${color FFA300}${font FontAwesome:size=11} ${font}${font sans serif:size=9}CPU ${offset 9}${color}${cpu cpu0}%     ${color FFA300}${font}${font FontAwesome:size=11} ${font}${font sans serif:size=9}${color}${if_existing /sys/class/hwmon/hwmon0/temp1_input}${hwmon 0 temp 1}°C${else}${hwmon 1 temp 1}°C${endif}${font}
-${voffset -59}${lua_parse conky_mynetwork}
-${voffset -65}
-${execpi 10 df -H -x squashfs -x tmpfs | awk /dev/ | sed '/udev/d' | cut -d% -f2 | while read line ; do
-echo '${offset 10}${color FFA300}${font FontAwesome:size=11} ${font}${font sans serif:size=9}'$line'${font}${color}
-${font sans serif:size=9}${offset 27}${fs_free '$line'} / ${fs_size '$line'}${font}${voffset 4}'
-done }
 ${voffset 50}
 ]];
