@@ -7,9 +7,9 @@ NC='\033[0m' # No Color
 
 killall conky
 
-echo -e "\n${ORANGE}Conky: Minimalist${NC}"
-cd Minimalist #Must start from the directory to avoid problem with relative paths in the script
-setsid conky --pause=1 --config="Minimalist" --daemonize
+echo -e "\n${ORANGE}Conky: Main${NC}"
+cd Main #Must start from the directory to avoid problem with relative paths in the script
+setsid conky --pause=1 --config="Main" --daemonize
 
 echo -e "\n${ORANGE}Conky: Network Lua${NC}"
 setsid conky --pause=2 --config="NetworkLua" --daemonize

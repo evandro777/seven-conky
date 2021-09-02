@@ -22,7 +22,7 @@ sevenConkyAutostartFile="${HOME}/.config/autostart/seven-conky.desktop"
 
 sevenConkyAutostartContent='[Desktop Entry]
 Type=Application
-Exec="'${scriptDir}start-${autoStart}.sh'"
+Exec="'${scriptDir}start-conky.sh'"
 X-GNOME-Autostart-enabled=true
 NoDisplay=false
 Hidden=false

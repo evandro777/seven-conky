@@ -2,7 +2,7 @@ conky.config = {
 --====================================
 --   Conky Settings
 --====================================
-	--lua_load = 'minimalist.lua',
+	--lua_load = 'main.lua',
 	cpu_avg_samples = 2,
 	net_avg_samples = 2,
 	update_interval = 1,

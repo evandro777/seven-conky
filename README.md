@@ -10,8 +10,8 @@
 * Conky Weather: uses OpenWeatherMap
 
 #### Screenshot
-	./start-minimalist.sh
-![Screenshot](Minimalist.png)
+	./start-conky.sh
+![Screenshot](screenshot.png)
 
 ## Weather conky
 Weather conky, must be configured manually to set an api token and city id.
