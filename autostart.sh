@@ -12,21 +12,11 @@ scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/"
 
 autoStart="$1"
 
-if [ -z "$autoStart" ]; then
-	while true; do
-		echo -e "${ORANGE}Enable autostart? [F]ull | [M]inimalist (leave empty to disable): ${NC}"
-		read -p "" prompt
-		case $prompt in
-			[Mm]* ) autoStart="m"; break;;
-			"" ) autoStart=""; break;;
-			* ) echo "Answer F, M or leave empty";;
-		esac
-	done
+if [ "$autoStart" == "-d" ]; then
+	autoStart=""
+else
+	autoStart="y"
 fi
-
-case $autoStart in
-	[Mm]* ) autoStart="minimalist";;
-esac
 
 sevenConkyAutostartFile="${HOME}/.config/autostart/seven-conky.desktop"
 

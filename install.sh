@@ -3,21 +3,21 @@
 
 #Example of usage this script:
 #Install with prompting: ./install.sh
-#Install custom options: ./install.sh -l "${HOME}/.conky/seven-conky/" -a "minimalist"
+#Install custom options: ./install.sh -l "${HOME}/.conky/seven-conky/" -a
 #Download and install: bash <(curl -s https://raw.githubusercontent.com/evandro777/seven-conky/main/install.sh)
-#Download and install with custom options: installLocation="${HOME}/.conky/seven-conky/" autoStart="minimalist" bash <(curl -s https://raw.githubusercontent.com/evandro777/seven-conky/main/install.sh)
+#Download and install with custom options: installLocation="${HOME}/.conky/seven-conky/" autoStart="y" bash <(curl -s https://raw.githubusercontent.com/evandro777/seven-conky/main/install.sh)
 
 #COLORS
 RED='\033[0;31m'
 ORANGE='\033[0;33m'
 NC='\033[0m' # No Color
 
-while getopts l:a: opts; do
+while getopts l:a opts; do
 	case ${opts} in
 		l) #install location
 			installLocation="${OPTARG}" ;;
 		a) #choose script to autostart
-			autoStart=${OPTARG} ;;
+			autoStart="y" ;;
 	esac
 done
 
@@ -29,15 +29,15 @@ if [ -z "$installLocation" ]; then
 	installLocation="${HOME}/.conky/seven-conky"
 fi
 
-if [ -z "$autoStart" ]; then
+if [ "$autoStart" != "y" ] && [ "$autoStart" != "n" ]; then
 	while true; do
-		echo -e "${ORANGE}Enable autostart? [F]ull | [M]inimalist (leave empty to disable): ${NC}"
+		echo -e "${ORANGE}Enable autostart? [Y]es | (empty)[N]o: ${NC}"
 		read -p "" prompt
 		case $prompt in
-			[Ff]* ) autoStart="f"; break;;
-			[Mm]* ) autoStart="m"; break;;
-			"" ) autoStart=""; break;;
-			* ) echo "Answer F, M or leave empty";;
+			[Yy]* ) autoStart="y"; break;;
+			[Nn]* ) autoStart="n"; break;;
+			"" ) autoStart="n"; break;;
+			* ) echo "Answer Y, N or leave empty";;
 		esac
 	done
 fi
