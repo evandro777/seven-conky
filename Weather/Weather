@@ -42,7 +42,7 @@ conky.config = {
 	alignment = 'top_right',
 
 	minimum_width = 280, minimum_height = 150,
-	maximum_width = 400,
+	maximum_width = 420,
 
 	own_window = true,
 	own_window_type = 'desktop',
@@ -125,18 +125,21 @@ ${font}
 #   Forecast weather
 #----------------------------------------
 ${voffset 1}${stippled_hr}
-#Tomorrow Temperature
-${font Sans Serif:size=11}Amanhã${font} \
+#+1 day
+${font Sans Serif:size=11}${exec date -d '+1 day' +%d/%m}${font} \
 ${goto 80}${font Sans Serif:size=11}${color2}⬇️${exec jq -r ".daily[1].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
 ${color1}⬆️${exec jq -r ".daily[1].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color} \
-#Tomorrow Description
 ${font Sans Serif:size=11}${alignr}${exec jq -r ".daily[1].weather[0].description" /tmp/conky-weather/cache/onecall.json}${font}
-#Tomorrow Icon
 #${image /tmp/conky-weather/cache/forecast-tomorrow.png -p 155,125 -s 64x64}
-#After Tomorrow Temperature
-${font Sans Serif:size=11}Depois${font} \
+#+2 day
+${font Sans Serif:size=11}${exec date -d '+2 day' +%d/%m}${font} \
 ${goto 80}${font Sans Serif:size=11}${color2}⬇️${exec jq -r ".daily[2].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
 ${color1}⬆️${exec jq -r ".daily[2].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color} \
-#After Tomorrow Description
 ${font Sans Serif:size=11}${alignr}${exec jq -r ".daily[2].weather[0].description" /tmp/conky-weather/cache/onecall.json}${font}
+#+3 day
+${font Sans Serif:size=11}${exec date -d '+3 day' +%d/%m}${font} \
+${goto 80}${font Sans Serif:size=11}${color2}⬇️${exec jq -r ".daily[3].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
+${color1}⬆️${exec jq -r ".daily[3].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color} \
+${font Sans Serif:size=11}${alignr}${exec jq -r ".daily[3].weather[0].description" /tmp/conky-weather/cache/onecall.json}${font}
+${voffset 1}
 ]];
