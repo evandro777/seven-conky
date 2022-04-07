@@ -62,7 +62,7 @@ function conky_disk()
 			local type = colsArray[3]
 			local size = colsArray[4]
 			local hotplug = colsArray[5]:gsub("%s+", "")
-			
+
 			if(type == "disk") then
 				local model = colsArray[6]
 				local deviceIcon = (hotplug == "1") and "${offset 0}${color1}${font FontAwesome:size=11} ${font}" or "${offset 5}${color1}${font FontAwesome:size=11} ${font}"
@@ -71,16 +71,21 @@ function conky_disk()
 			elseif(type == "part") then
 				local filesystemType = colsArray[6]
 				local mountPoint = colsArray[7]
-		
+
 				if(not isEmpty(mountPoint)) then
 					local filesystemType = colsArray[7]
 					local filesystemSize = colsArray[8]
-					local filesystemAvailable = colsArray[9]
-					local filesystemUsed = colsArray[10]
-					
-					listresult = listresult.."${if_mounted "..mountPoint.."}${offset 22}${color1}${font sans serif:size=9}"..name.."${color} "..mountPoint.."${voffset 2}${font}\n"
-					listresult = listresult.."${font sans serif:size=9}${offset 22}"..filesystemAvailable.." / "..filesystemSize.."${font}${voffset 4}\n"
-					listresult = listresult.."${offset 22}${voffset -7}${fs_bar 4,175 "..mountPoint.."}${endif}\n"
+
+					if(not isEmpty(filesystemSize)) then
+					    local filesystemAvailable = colsArray[9]
+					    local filesystemUsed = colsArray[10]
+
+					    listresult = listresult.."${if_mounted "..mountPoint.."}${offset 22}${color1}${font sans serif:size=9}"..name.."${color} "..mountPoint.."${voffset 2}${font}\n"
+					    listresult = listresult.."${font sans serif:size=9}${offset 22}"..filesystemAvailable.." / "..filesystemSize.."${font}${voffset 4}\n"
+					    listresult = listresult.."${offset 22}${voffset -7}${fs_bar 4,175 "..mountPoint.."}${endif}\n"
+
+					end
+
 				end
 			end
 		end

@@ -12,12 +12,17 @@
 
 -- ifconfig -s is similar to netstat -i
 -- LIST INTERFACES, REMOVE HEADER LINES & LOOPBACK INTERFACE, ORDER BY BYTES RECEIVED (REVERSE) AND PRINT ONLY FIRST COLUMN AND ONLY FIRST LINE
+-- There is a problem with this code, interface names are limited for 8 characters
 -- ifconfig -s | sed 1,1d | grep -v LRU | sort -n -r -k 3,3 | awk '{print $1}'
 
 -- LIST INTERFACES, REMOVE HEADER LINES & LOOPBACK INTERFACE, ORDER BY BYTES RECEIVED (REVERSE) AND PRINT ONLY FIRST COLUMN AND ONLY FIRST LINE
+-- There is a problem with this code, interface names are limited for 8 characters
 -- netstat -i | sed 1,2d | grep -v LRU | sort -n -r -k 3,3 | awk '{print $1}'
 
-local file = io.popen("netstat -i | sed 1,2d | grep -v LRU | sort -n -r -k 3,3 | awk '{print $1}' | sed -n '1p'")
+-- LIST INTERFACES, GET ONLY CONNECTED & wifi & ethernet AND PRINT ONLY FIRST COLUMN AND ONLY FIRST LINE
+-- nmcli --colors=no device | grep -w 'connected' | grep -E 'wifi |ethernet ' | awk '{print $1}' | sed -n '1p'
+
+local file = io.popen("nmcli --colors=no device | grep -w 'connected' | grep -E 'wifi |ethernet ' | awk '{print $1}' | sed -n '1p'")
 local result = file:read("*a")
 file:close()
 local interface = result:gsub("%s+", "") --remove whitespaces
