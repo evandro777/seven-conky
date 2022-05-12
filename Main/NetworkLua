@@ -25,7 +25,7 @@ conky.config = {
 --====================================
 --   Window Specifications
 --====================================
-	gap_x = 890,
+	gap_x = 810,
 	gap_y = 130,
 	alignment = 'top_right',
 	
