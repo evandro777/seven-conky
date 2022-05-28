@@ -9,27 +9,29 @@ NC='\033[0m' # No Color
 
 killall conky
 
+monitorWidth=$(xrandr | grep ' connected primary' | cut -d"+" -f2)
+
 echo -e "\n${ORANGE}Conky: Main${NC}"
 cd Main #Must start from the directory to avoid problem with relative paths in the script
-setsid conky --pause=1 --config="Main" --daemonize
+setsid conky --pause=1 --config="Main" -x $((230 + $monitorWidth))  -y 13 --daemonize
 
 echo -e "\n${ORANGE}Conky: Network Lua${NC}"
-setsid conky --pause=2 --config="NetworkLua" --daemonize
+setsid conky --pause=2 --config="NetworkLua" -x $((810 + $monitorWidth)) -y 130 --daemonize
 
 echo -e "\n${ORANGE}Conky: Disk${NC}"
-setsid conky --pause=3 --config="DiskLua" --daemonize
+setsid conky --pause=3 --config="DiskLua" -x $((460 + $monitorWidth)) -y 130 --daemonize
 
 echo -e "\n${ORANGE}Conky: Process${NC}"
-setsid conky --pause=4 --config="Process" --daemonize
+setsid conky --pause=4 --config="Process" -x $((1020 + $monitorWidth)) -y 130 --daemonize
 
 cd ..
 
 cd Weather
 echo -e "\n${ORANGE}Conky: Weather${NC}"
-setsid conky --pause=5 --config="Weather" --daemonize
+setsid conky --pause=5 --config="Weather" -x $((10 + $monitorWidth)) -y 10 --daemonize
 cd ..
 
 cd Music
 echo -e "\n${ORANGE}Conky: Music${NC}"
-setsid conky --pause=6 --config="Music" --daemonize
+setsid conky --pause=6 --config="Music" -x $((10 + $monitorWidth)) -y 45 --daemonize
 cd ..

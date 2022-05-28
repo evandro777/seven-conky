@@ -21,8 +21,8 @@ if [ "$id_new" != "$id_current" ]; then
 		#DEFAULT IMAGE
 		cp "$cover_empty_path" "$cover_current_path"
 		
-		#START PROCESS TO GET NEW IMAGE
-		./spotify_track_info.sh $id_new # Get a lot of info like genres
+		# START PROCESS TO GET NEW IMAGE
+		#./spotify_track_info.sh $id_new # Get a lot of info like title, artist, genres, country
 		imgurl=`./imgurl.sh`
 		wget -O "${covers_path}${id_new}.jpg" $imgurl
 		cover=`ls "${covers_path}" | grep $id_new`
