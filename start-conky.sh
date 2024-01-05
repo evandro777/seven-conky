@@ -13,16 +13,16 @@ monitorWidth=$(xrandr | grep ' connected primary' | cut -d"+" -f2)
 
 echo -e "\n${ORANGE}Conky: Main${NC}"
 cd Main #Must start from the directory to avoid problem with relative paths in the script
-setsid conky --pause=1 --config="Main" -x $((230 + $monitorWidth))  -y 13 --daemonize
+setsid conky --pause=1 --config="Main" -x $((230 + $monitorWidth))  -y 10 --daemonize
 
 echo -e "\n${ORANGE}Conky: Network Lua${NC}"
-setsid conky --pause=2 --config="NetworkLua" -x $((810 + $monitorWidth)) -y 130 --daemonize
+setsid conky --pause=2 --config="NetworkLua" -x $((800 + $monitorWidth)) -y 130 --daemonize
 
 echo -e "\n${ORANGE}Conky: Disk${NC}"
-setsid conky --pause=3 --config="DiskLua" -x $((460 + $monitorWidth)) -y 130 --daemonize
+setsid conky --pause=3 --config="DiskLua" -x $((430 + $monitorWidth)) -y 130 --daemonize
 
 echo -e "\n${ORANGE}Conky: Process${NC}"
-setsid conky --pause=4 --config="Process" -x $((1020 + $monitorWidth)) -y 130 --daemonize
+setsid conky --pause=4 --config="Process" -x $((1010 + $monitorWidth)) -y 130 --daemonize
 
 cd ..
 
