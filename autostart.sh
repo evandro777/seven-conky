@@ -5,17 +5,17 @@
 
 #COLORS
 RED='\033[0;31m'
-ORANGE='\033[0;33m'
+YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
-scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/"
+scriptDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)/"
 
 autoStart="$1"
 
 if [ "$autoStart" == "-d" ]; then
-	autoStart=""
+    autoStart=""
 else
-	autoStart="y"
+    autoStart="y"
 fi
 
 sevenConkyAutostartFile="${HOME}/.config/autostart/seven-conky.desktop"
@@ -32,10 +32,10 @@ X-GNOME-Autostart-Delay=5
 X-GNOME-Autostart-enabled=true'
 
 if [ -n "$autoStart" ]; then
-	echo -e "${ORANGE}Creating startup conky${NC}"
-	#CREATE FILE WITH USER PERMISSION. USING ECHO OR PRINTF DIRECTLY WILL CREATE WITH ROOT PERMISSION
-	printf "${sevenConkyAutostartContent}" | tee "${sevenConkyAutostartFile}" > /dev/null
+    echo -e "${YELLOW}Creating startup conky${NC}"
+    #CREATE FILE WITH USER PERMISSION. USING ECHO OR PRINTF DIRECTLY WILL CREATE WITH ROOT PERMISSION
+    printf "${sevenConkyAutostartContent}" | tee "${sevenConkyAutostartFile}" > /dev/null
 else
-	echo -e "${ORANGE}Removing startup conky${NC}"
-	rm "${sevenConkyAutostartFile}"
+    echo -e "${YELLOW}Removing startup conky${NC}"
+    rm "${sevenConkyAutostartFile}"
 fi
