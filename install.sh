@@ -4,9 +4,9 @@
     #Example of usage this script:
     #Install with prompting: ./install.sh
     #Get help: ./install.sh --help
-    #Install custom options example: ./install.sh --install-location="${HOME}/.conky/seven-conky/" --auto-start="y" --weather-key="111" --weather-city-id="222" --weather-unit="metric" --weather-language="pt_br"
+    #Install custom options example: ./install.sh --install-location="${HOME}/.conky/seven-conky/" --auto-start=y --weather-key=111 --weather-city-id=222 --weather-unit=metric --weather-language=pt_br
     #Download and install: bash <(curl -s https://raw.githubusercontent.com/evandro777/seven-conky/main/install.sh)
-    #Download and install with custom options: install_location="${HOME}/.conky/seven-conky/" auto_start="y" bash <(curl -s https://raw.githubusercontent.com/evandro777/seven-conky/main/install.sh)
+    #Download and install with custom options: --install-location="${HOME}/.conky/seven-conky/" auto_start=y weather_key=111 weather_city_id=222 weather_unit=metric weather_language=pt_br bash <(curl -s https://raw.githubusercontent.com/evandro777/seven-conky/main/install.sh)
 
     # COLORS
     RED='\033[0;31m'
@@ -128,14 +128,6 @@
         echo -e "To get the city id to get the weather, search your city id at: [https://openweathermap.org/], then copy the link of the city, something like: https://openweathermap.org/city/3457095 and use only the end number: 3457095"
         read -rp "" weather_city_id
     done
-
-    echo "$install_location"
-    echo "$auto_start"
-    echo "$weather_key"
-    echo "$weather_city_id"
-    echo "$weather_unit"
-    echo "$weather_language"
-    exit
 
     # Download and install Conky
     echo "Downloading the most recent Conky"
