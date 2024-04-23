@@ -131,7 +131,7 @@
 
     # Download and install Conky
     echo "Downloading the most recent Conky"
-    wget --directory-prefix="${install_location}" https://github.com/evandro777/seven-conky/archive/refs/heads/main.zip
+    wget --no-verbose --timestamping --directory-prefix="${install_location}" https://github.com/evandro777/seven-conky/archive/refs/heads/main.zip
     echo "Installing Conky in: $install_location"
     unzip -q -o "${install_location}/main.zip" -d "${install_location}"
     cp -rlf "${install_location}/seven-conky-main/"* "${install_location}"
