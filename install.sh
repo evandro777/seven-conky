@@ -109,7 +109,7 @@
     fi
 
     if [ -z "$weather_language" ]; then
-        echo -e "${ORANGE}Language [en (or empty): English, pt_br: Português Brasil, sp, es: Spanish] (get a complete list at: https://openweathermap.org/current#multi): ${NC}"
+        echo -e "${ORANGE}Language [en (or empty): English, pt_br: Português Brasil, sp | es: Spanish] (get a complete list at: https://openweathermap.org/current#multi): ${NC}"
         read -rp "" weather_language
     fi
     if [ -z "$weather_language" ]; then
