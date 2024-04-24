@@ -141,10 +141,10 @@
     # Configure weather
     weather_config_location="${install_location}/Weather/conky-weather/WeatherConfig.sh"
     cp "${install_location}/Weather/conky-weather/WeatherConfig.sample.sh" "${weather_config_location}"
-    sed -i 's/weather_key=.*$/weather_key="'$weather_key'"/g' "${weather_config_location}"
-    sed -i 's/weather_city_id=.*$/weather_city_id="'$weather_city_id'"/g' "${weather_config_location}"
-    sed -i 's/weather_unit=.*$/weather_unit="'$weather_unit'"/g' "${weather_config_location}"
-    sed -i 's/weather_language=.*$/weather_language="'$weather_language'"/g' "${weather_config_location}"
+    sed -i 's/weatherKey=.*$/weatherKey="'$weather_key'"/g' "${weather_config_location}"
+    sed -i 's/weatherCityId=.*$/weatherCityId="'$weather_city_id'"/g' "${weather_config_location}"
+    sed -i 's/weatherUnit=.*$/weatherUnit="'$weather_unit'"/g' "${weather_config_location}"
+    sed -i 's/weatherLanguage=.*$/weatherLanguage="'$weather_language'"/g' "${weather_config_location}"
 
     # Run autostart script
     . "${install_location}/autostart.sh" "$auto_start"
