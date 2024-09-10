@@ -129,14 +129,19 @@
         read -rp "" weather_city_id
     done
 
-    # Download and install Conky
-    echo "Downloading the most recent Conky"
-    wget --no-verbose --timestamping --directory-prefix="${install_location}" https://github.com/evandro777/seven-conky/archive/refs/heads/main.zip
-    echo "Installing Conky in: $install_location"
-    unzip -q -o "${install_location}/main.zip" -d "${install_location}"
-    cp -rlf "${install_location}/seven-conky-main/"* "${install_location}"
-    rm -r "${install_location}/seven-conky-main/"
-    rm "${install_location}/main.zip"
+    if command -v git &> /dev/null # check for git
+    then
+        echo "Cloning git repository: the most recent Conky"
+        git clone https://github.com/evandro777/seven-conky.git "${install_location}"
+    else
+        echo "Downloading the most recent Conky"
+        wget --no-verbose --timestamping --directory-prefix="${install_location}" https://github.com/evandro777/seven-conky/archive/refs/heads/main.zip
+        echo "Installing Conky in: $install_location"
+        unzip -q -o "${install_location}/main.zip" -d "${install_location}"
+        cp -rlf "${install_location}/seven-conky-main/"* "${install_location}"
+        rm -r "${install_location}/seven-conky-main/"
+        rm "${install_location}/main.zip"
+    fi
 
     # Configure weather
     weather_config_location="${install_location}/Weather/conky-weather/WeatherConfig.sh"
