@@ -57,7 +57,7 @@ conky.config = {
 --====================================
 	use_xft = true,
 	xftalpha = 0,
-	font = 'sans serif:size=10',
+	font = 'DejaVu Sans:size=10',
 	override_utf8_locale = true,
 	imlib_cache_size = 0,
 
@@ -87,35 +87,35 @@ ${execi 600 conky-weather/WeatherFetch.sh}\
 #----------------------------------------
 #   Current weather
 #----------------------------------------
-#${font Sans Serif:style=Bold:size=14}${alignc}${exec jq -r ".name" /tmp/conky-weather/cache/weather.json}${font}
+#${font DejaVu Sans:style=Bold:size=14}${alignc}${exec jq -r ".name" /tmp/conky-weather/cache/weather.json}${font}
 #${voffset -8}${stippled_hr}
 ${font FontAwesome:size=11} ${font Ubuntu:style=Bold:size=11}${exec jq -r ".name" /tmp/conky-weather/cache/weather.json}
 ${voffset -22}
 ${stippled_hr}
 #Humidity
 #${image conky-weather/humidity.png -p 0,30 -s 16x16}${goto 22}
-${font FontAwesome:size=11} ${font}${font Sans Serif:size=11}${exec jq -r ".main.humidity" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num} %${font}\
+${font FontAwesome:size=11} ${font}${font DejaVu Sans:size=11}${exec jq -r ".main.humidity" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num} %${font}\
 #Wind
 ${image conky-weather/wind.png -p 80,32 -s 16x16}\
-${goto 105}${font Sans Serif:size=11}${exec jq -r ".wind.speed" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num}${if_match "$template1" == "metric"} m/s${else}${if_match "$template1" == "default"} m/s${else}${if_match "$template1" == "imperial"} mi/h${endif}${endif}${endif}${font}${color}\
+${goto 105}${font DejaVu Sans:size=11}${exec jq -r ".wind.speed" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num}${if_match "$template1" == "metric"} m/s${else}${if_match "$template1" == "default"} m/s${else}${if_match "$template1" == "imperial"} mi/h${endif}${endif}${endif}${font}${color}\
 #Description
-${font Sans Serif:size=11}${alignr}${exec jq -r ".weather[0].description" /tmp/conky-weather/cache/weather.json}${font}
+${font DejaVu Sans:size=11}${alignr}${exec jq -r ".weather[0].description" /tmp/conky-weather/cache/weather.json}${font}
 #Pressure
 #${image conky-weather/pressure.png -p 0,73 -s 16x16}\
 #${voffset 7}\
 #${goto 22}${exec jq -r ".main.pressure" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num} hPa${font}
 #Temperature
-${font Sans Serif :size=24}\
+${font DejaVu Sans :size=24}\
 ${exec jq ".main.temp" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num}°${font}\
-${font Sans Serif :size=11}\
+${font DejaVu Sans :size=11}\
 ${goto 65}${voffset -2}(${exec jq ".main.feels_like" /tmp/conky-weather/cache/weather.json | awk '{print int($1+0.5)}' # round num}°)${font}\
-${font Sans Serif:size=11}${voffset 2}
-${color1}⬆️${exec jq -r ".daily[0].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
-${color2}⬇️${exec jq -r ".daily[0].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color}\
+${font DejaVu Sans:size=11}${voffset 2}
+${color2}⬇️${exec jq -r ".daily[0].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
+${color1}⬆️${exec jq -r ".daily[0].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color}\
 ${font}
 # Current weather
 ${image /tmp/conky-weather/cache/current.png -p 210,55 -s 64x64}\
-${voffset 2}${font Sans Serif:size=10}\
+${voffset 2}${font DejaVu Sans:size=10}\
 ${if_match "${exec jq -r ".alerts[0].event" /tmp/conky-weather/cache/onecall.json}" != "null"}* ${exec jq -r ".alerts[0].event" /tmp/conky-weather/cache/onecall.json}${template0}${endif}\
 ${if_match "${exec jq -r ".alerts[1].event" /tmp/conky-weather/cache/onecall.json}" != "null"}* ${exec jq -r ".alerts[1].event" /tmp/conky-weather/cache/onecall.json}${template0}${endif}\
 ${if_match "${exec jq -r ".alerts[2].event" /tmp/conky-weather/cache/onecall.json}" != "null"}* ${exec jq -r ".alerts[1].event" /tmp/conky-weather/cache/onecall.json}${template0}${endif}\
@@ -126,20 +126,20 @@ ${font}
 #----------------------------------------
 ${voffset 1}${stippled_hr}
 #+1 day
-${font Sans Serif:size=11}${exec date -d '+1 day' +%d/%m}${font} \
-${goto 80}${font Sans Serif:size=11}${color1}⬆️${exec jq -r ".daily[1].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
-${color2}⬇️${exec jq -r ".daily[1].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color} \
-${font Sans Serif:size=11}${alignr}${exec jq -r ".daily[1].weather[0].description" /tmp/conky-weather/cache/onecall.json}${font}
+${font DejaVu Sans:size=11}${exec date -d '+1 day' +%d/%m}${font} \
+${goto 80}${font DejaVu Sans:size=11}${color2}⬇️${exec jq -r ".daily[1].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
+${color1}⬆️${exec jq -r ".daily[1].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color} \
+${font DejaVu Sans:size=11}${alignr}${exec jq -r ".daily[1].weather[0].description" /tmp/conky-weather/cache/onecall.json}${font}
 #${image /tmp/conky-weather/cache/forecast-tomorrow.png -p 155,125 -s 64x64}
 #+2 day
-${font Sans Serif:size=11}${exec date -d '+2 day' +%d/%m}${font} \
-${goto 80}${font Sans Serif:size=11}${color1}⬆️${exec jq -r ".daily[2].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
-${color2}⬇️${exec jq -r ".daily[2].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color} \
-${font Sans Serif:size=11}${alignr}${exec jq -r ".daily[2].weather[0].description" /tmp/conky-weather/cache/onecall.json}${font}
+${font DejaVu Sans:size=11}${exec date -d '+2 day' +%d/%m}${font} \
+${goto 80}${font DejaVu Sans:size=11}${color2}⬇️${exec jq -r ".daily[2].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
+${color1}⬆️${exec jq -r ".daily[2].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color} \
+${font DejaVu Sans:size=11}${alignr}${exec jq -r ".daily[2].weather[0].description" /tmp/conky-weather/cache/onecall.json}${font}
 #+3 day
-${font Sans Serif:size=11}${exec date -d '+3 day' +%d/%m}${font} \
-${goto 80}${font Sans Serif:size=11}${color1}⬆️${exec jq -r ".daily[3].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
-${color2}⬇️${exec jq -r ".daily[3].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color} \
-${font Sans Serif:size=11}${alignr}${exec jq -r ".daily[3].weather[0].description" /tmp/conky-weather/cache/onecall.json}${font}
+${font DejaVu Sans:size=11}${exec date -d '+3 day' +%d/%m}${font} \
+${goto 80}${font DejaVu Sans:size=11}${color2}⬇️${exec jq -r ".daily[3].temp.min" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}° ${color}| \
+${color1}⬆️${exec jq -r ".daily[3].temp.max" /tmp/conky-weather/cache/onecall.json | awk '{print int($1+0.5)}' # round num}°${font}${color} \
+${font DejaVu Sans:size=11}${alignr}${exec jq -r ".daily[3].weather[0].description" /tmp/conky-weather/cache/onecall.json}${font}
 ${voffset 1}
 ]];

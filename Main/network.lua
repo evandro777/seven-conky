@@ -29,11 +29,11 @@ local interface = result:gsub("%s+", "") --remove whitespaces
 
 listresult = ""
 listresult = listresult.."${if_up "..tostring(interface).."}"
-listresult = listresult.."${color1}${font FontAwesome:size=11} ${font}${color}${offset 9}${font sans serif:size=9}${addrs "..tostring(interface).."}${font}\n"
+listresult = listresult.."${color1}${font FontAwesome:size=11} ${font}${color}${offset 9}${font DejaVu Sans:size=9}${addrs "..tostring(interface).."}${font}\n"
 listresult = listresult.."${voffset 4}"
-listresult = listresult.."${color1}${font FontAwesome:size=11} ${font}${color} ${offset 9}${font sans serif:size=9}${totaldown "..tostring(interface).."}  |  ${downspeedf "..tostring(interface).."} KiB/s${font}\n"
+listresult = listresult.."${color1}${font FontAwesome:size=11} ${font}${color} ${offset 9}${font DejaVu Sans:size=9}${totaldown "..tostring(interface).."}  |  ${downspeedf "..tostring(interface).."} KiB/s${font}\n"
 listresult = listresult.."${voffset 4}"
-listresult = listresult.."${color1}${font FontAwesome:size=11} ${font}${color} ${offset 9}${font sans serif:size=9}${totalup "..tostring(interface).."}  |  ${upspeedf "..tostring(interface).."} KiB/s${font}"
+listresult = listresult.."${color1}${font FontAwesome:size=11} ${font}${color} ${offset 9}${font DejaVu Sans:size=9}${totalup "..tostring(interface).."}  |  ${upspeedf "..tostring(interface).."} KiB/s${font}"
 listresult = listresult.."${endif}"
 
 function conky_mynetwork()

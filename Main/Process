@@ -44,7 +44,7 @@ conky.config = {
 --====================================
 	use_xft = true,
 	xftalpha = 0,
-	font = 'sans serif:size=9',
+	font = 'DejaVu Sans:size=9',
 	override_utf8_locale = true,
 	imlib_cache_size = 0,
 	
@@ -61,21 +61,21 @@ conky.config = {
 };
 
 conky.text = [[
-${color1}${font FontAwesome:size=11} ${font}${font sans serif:size=9}RAM ${offset 9}${color}$mem / $memmax${offset 30}${font}
+${color1}${font FontAwesome:size=11} ${font}${font DejaVu Sans:size=9}RAM ${offset 9}${color}$mem / $memmax${offset 30}${font}
 ${membar 4,175}
-${font Sans Serif:size=9}\
+${font DejaVu Sans:size=9}\
 ${top_mem name 1}${goto 135}${top_mem mem_res 1}
 ${top_mem name 2}${goto 135}${top_mem mem_res 2}
 ${top_mem name 3}${goto 135}${top_mem mem_res 3}
 ${top_mem name 4}${goto 135}${top_mem mem_res 4}
 ${top_mem name 5}${goto 135}${top_mem mem_res 5}
-${voffset 5}${color1}${font FontAwesome:size=11} ${font}${font sans serif:size=9}CPU ${offset 9}${color}${cpu cpu0}% ${goto 137}${color1}${font}${font FontAwesome:size=11} ${font}${font sans serif:size=9}${color}\
+${voffset 5}${color1}${font FontAwesome:size=11} ${font}${font DejaVu Sans:size=9}CPU ${offset 9}${color}${cpu cpu0}% ${goto 137}${color1}${font}${font FontAwesome:size=11} ${font}${font DejaVu Sans:size=9}${color}\
 ${if_existing /sys/class/hwmon/hwmon0/temp1_input}${hwmon 0 temp 1}°C\
 ${else}${if_existing /sys/class/hwmon/hwmon1/temp1_input}${hwmon 1 temp 1}°C\
 ${else}${if_existing /sys/class/hwmon/hwmon2/temp1_input}${hwmon 2 temp 1}°C\
 ${else}?\
 ${endif}${endif}${endif}${font}
-${font Sans Serif:size=9}\
+${font DejaVu Sans:size=9}\
 ${cpubar cpu0 4,175}
 ${top name 1}${goto 135}${top cpu 1}%
 ${top name 2}${goto 135}${top cpu 2}%

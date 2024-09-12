@@ -43,7 +43,7 @@ conky.config = {
 --====================================
 	use_xft = true,
 	xftalpha = 0,
-	font = 'sans serif:size=9',
+	font = 'DejaVu Sans:size=9',
 	override_utf8_locale = true,
 	imlib_cache_size = 0,
 	
