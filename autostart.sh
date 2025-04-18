@@ -26,8 +26,8 @@ Exec="'${scriptDir}start-conky.sh'"
 X-GNOME-Autostart-enabled=true
 NoDisplay=false
 Hidden=false
-Name[en_US]=seven-conky
-Comment[en_US]=Start seven-conky
+Name=seven-conky
+Comment=Start seven-conky
 X-GNOME-Autostart-Delay=5
 X-GNOME-Autostart-enabled=true'
 
